@@ -1,0 +1,617 @@
+{
+  "summary_metrics": {
+    "bleu_1": 0.5183166204794454,
+    "bleu_2": 0.3613671741022852,
+    "bleu_3": 0.24801073931729484,
+    "bleu_4": 0.16818785638519246,
+    "rouge_1": 0.4434941072315092,
+    "rouge_2": 0.204549380651749,
+    "rouge_l": 0.4248419148585249,
+    "meteor": 0.3045217286150979
+  },
+  "num_samples": 810,
+  "method": "beam",
+  "beam_width": 5,
+  "samples": [
+    {
+      "image_name": "1007129816_e794419615.jpg",
+      "generated_caption": "a man with a <unk> hat",
+      "reference_captions": [
+        "A man in an orange hat starring at something .",
+        "A man wears an orange hat and glasses .",
+        "A man with gauges and glasses is wearing a Blitz hat .",
+        "A man with glasses is wearing a beer can crocheted hat .",
+        "The man with pierced ears is wearing glasses and an orange hat ."
+      ],
+      "confidence_score": -4.30502366336263
+    },
+    {
+      "image_name": "1022454332_6af2c1449a.jpg",
+      "generated_caption": "a boy <unk> into the water",
+      "reference_captions": [
+        "A child and a woman are at waters edge in a big city .",
+        "a large lake with a lone duck swimming in it with several people around the edge of it .",
+        "A little boy at a lake watching a duck .",
+        "A young boy waves his hand at the duck in the water surrounded by a green park .",
+        "Two people are at the edge of a lake , facing the water and the city skyline ."
+      ],
+      "confidence_score": -4.138764684582168
+    },
+    {
+      "image_name": "1045521051_108ebc19be.jpg",
+      "generated_caption": "a man is <unk> at a <unk> <unk>",
+      "reference_captions": [
+        "A person eats takeout while watching a small television .",
+        "A person sits on the floor and eats in front of a television .",
+        "A television with a picture of a girl on it .",
+        "A young man sits on the floor by the television with a fast food meal in front of him .",
+        "Someone is laying in front of the TV eating food ."
+      ],
+      "confidence_score": -4.640609580313191
+    },
+    {
+      "image_name": "1082379191_ec1e53f996.jpg",
+      "generated_caption": "a man and a woman <unk> on a <unk>",
+      "reference_captions": [
+        "A lady and a man with no shirt sit on a dock .",
+        "A man and a woman are sitting on a dock together .",
+        "A man and a woman sitting on a dock .",
+        "A man and woman sitting on a deck next to a lake .",
+        "A shirtless man and a woman sitting on a dock ."
+      ],
+      "confidence_score": -4.352568476523191
+    },
+    {
+      "image_name": "1107246521_d16a476380.jpg",
+      "generated_caption": "two black dogs are playing in the grass",
+      "reference_captions": [
+        "a black dog jumping to catch a rope toy",
+        "A black dog playing fetch with a ball of rope .",
+        "A black dog pounces to get a rope toy .",
+        "A black dog running after his rope toy .",
+        "A large black dog is playing in a grassy yard ."
+      ],
+      "confidence_score": -3.548778793004447
+    },
+    {
+      "image_name": "112178718_87270d9b4d.jpg",
+      "generated_caption": "a man in a blue shirt is jumping on the beach",
+      "reference_captions": [
+        "A guy stands in the sand with a snowboard behind him .",
+        "A man holds a surfboard on the beach .",
+        "a man holds his snowboard in the sand .",
+        "A man with his surfboard stands in the sand .",
+        "Man is standing on white sand and holding a snowboard ."
+      ],
+      "confidence_score": -5.009613793586458
+    },
+    {
+      "image_name": "1122944218_8eb3607403.jpg",
+      "generated_caption": "a little boy <unk> a <unk>",
+      "reference_captions": [
+        "A baby in a white garment holds a flag with crescent moon and star .",
+        "A baby is holding a small black flag with a moon and a star on it .",
+        "A baby wearing a white gown waves a Muslim flag .",
+        "A little toddler dressed in white is smiling while a lady helps him wave a flag .",
+        "Baby in white outfit holding black and white flag ."
+      ],
+      "confidence_score": -4.411940368115564
+    },
+    {
+      "image_name": "1130017585_1a219257ac.jpg",
+      "generated_caption": "a woman <unk> a <unk>",
+      "reference_captions": [
+        "There are three young people , one dark haired holding a bottled drink , one with head tilted back and finger in her mouth , and one with spiked hair .",
+        "The young people party in the streets .",
+        "Three girls make faces as one takes a drink while they stand in a busy street .",
+        "Three women on the street drinking and posing",
+        "Three young women pose for the camera at a parade ."
+      ],
+      "confidence_score": -4.588674515208212
+    },
+    {
+      "image_name": "1132772170_600610c5df.jpg",
+      "generated_caption": "a little boy is <unk> on a <unk>",
+      "reference_captions": [
+        "A child leaping from bed to bed behind the back of a man .",
+        "A man is standing with his arms folded looking at something while the person behind him is jumping onto one of the two beds in the room .",
+        "a man wearing a yellow shirt standing in the middle of two beds that a boy is jumping on in the background",
+        "A young child jumping on the bed as a man looks the other way .",
+        "Man standing in the bedroom with little boy jumping into bed ."
+      ],
+      "confidence_score": -4.7646626907719245
+    },
+    {
+      "image_name": "114051287_dd85625a04.jpg",
+      "generated_caption": "a boy <unk> a <unk>",
+      "reference_captions": [
+        "A boy dressed in soccer attire and holding his shoes getting out of a car .",
+        "A boy in a red soccer strip is holding his boots in his hand whilst stepping out of a car .",
+        "A boy in glasses is wearing a red shirt .",
+        "A child getting out of the car wearing soccer shoes .",
+        "A young boy gets out of the van and prepares his shoes for wear during a soccer game ."
+      ],
+      "confidence_score": -3.9398342860866
+    },
+    {
+      "image_name": "1155138244_859fd6e079.jpg",
+      "generated_caption": "a <unk> <unk> <unk>",
+      "reference_captions": [
+        "A girl hands out Starbucks samples at a street fair .",
+        "An Asian girl in a green hat and apron is serving drinks on a tray .",
+        "a Starbucks barista offering up a tray of drinks",
+        "The waitress offers complimentary tea to the patrons .",
+        "Woman dressed in a green hat and apron is holding a try full of drink samples ."
+      ],
+      "confidence_score": -4.764973052600271
+    },
+    {
+      "image_name": "1160034462_16b38174fe.jpg",
+      "generated_caption": "a man in a hat is <unk> a <unk>",
+      "reference_captions": [
+        "A elderly man in a straw hat is sitting on a bench .",
+        "a elderly man sits alone on a park bench .",
+        "An old man in a straw hat sits on a park bench .",
+        "The old man in the brown hat is sitting on the bench .",
+        "White haired man in gray sweater and a straw hat sitting on a bench under a tree ."
+      ],
+      "confidence_score": -4.183511561981799
+    },
+    {
+      "image_name": "1167908324_8caab45e15.jpg",
+      "generated_caption": "a man is <unk> at a <unk> <unk>",
+      "reference_captions": [
+        "A man is standing by a group of video games in a bar .",
+        "a man standing in a bar with a neon beer sign hanging on the wall",
+        "A man stands next to a bank of computer gambling machines .",
+        "A man stands next to three video game machines and a beer sign .",
+        "A man stands next to three video machines ."
+      ],
+      "confidence_score": -4.03711221980316
+    },
+    {
+      "image_name": "1178705300_c224d9a4f1.jpg",
+      "generated_caption": "a brown dog is jumping into a swimming <unk>",
+      "reference_captions": [
+        "a brown dog jumping into a pool after a bloe ball .",
+        "A dog in the air above the swimming pool .",
+        "A dog jumps into a backyard pool .",
+        "A tan colored dog is jumping into an outdoor pool .",
+        "A tan colored dog leaps into the inground pool ."
+      ],
+      "confidence_score": -2.776427986376942
+    },
+    {
+      "image_name": "118187095_d422383c81.jpg",
+      "generated_caption": "a little boy is riding on a <unk> <unk>",
+      "reference_captions": [
+        "Parents are pushing little children in red car carts .",
+        "twin boys being pushed in small car shaped strollers in a parade",
+        "Twin toddlers dressed alike being pushed in plastic car strollers in a parade",
+        "Two children ride in toy cars .",
+        "Two kids being pushed in car shaped strollers in a parade ."
+      ],
+      "confidence_score": -6.501715208642885
+    },
+    {
+      "image_name": "1234817607_924893f6e1.jpg",
+      "generated_caption": "a man in a <unk> shirt <unk> a <unk>",
+      "reference_captions": [
+        "a Korean man sells soda .",
+        "A man is sitting at an outside bar near many soda and beer cans .",
+        "A man wearing glasses with aluminum cans lined up in front of him .",
+        "An elderly man is smiling while sitting in front of a row of soda cans .",
+        "Vendor selling drinks in a stall ."
+      ],
+      "confidence_score": -5.082408830996653
+    },
+    {
+      "image_name": "1235580648_7eebaed9bc.jpg",
+      "generated_caption": "a man in a <unk> hat <unk> a <unk> <unk>",
+      "reference_captions": [
+        "The hatted males pose for a picture .",
+        "The two men are wearing tall hats , one hat is a red print and the other is gold colored .",
+        "Two men in tall hats frown at the camera",
+        "Two men wear silly stove pipe hats and wear makeup .",
+        "Two people wearing hats sit and look at the camera ."
+      ],
+      "confidence_score": -5.463816657790168
+    },
+    {
+      "image_name": "123997871_6a9ca987b1.jpg",
+      "generated_caption": "a group of <unk> <unk> <unk>",
+      "reference_captions": [
+        "Girls wearing sports uniforms and eye protection .",
+        "Several female lacrosse players are going after a ball .",
+        "These girls are in uniforms and are playing field hockey .",
+        "The woman lacrosse player in blue is about to catch the ball .",
+        "Women play lacrosse ."
+      ],
+      "confidence_score": -5.617681679162742
+    },
+    {
+      "image_name": "1244140539_da4804d828.jpg",
+      "generated_caption": "a brown and black dog <unk> on a <unk> <unk>",
+      "reference_captions": [
+        "A black and brown dog is laying on a white shaggy carpet .",
+        "A brown and black dog is laying on a shaggy rug .",
+        "a small brown and black dog lying down in a furry rug .",
+        "A small dog is sitting on white carpet .",
+        "A small dog shakes its head on a white shag carpet ."
+      ],
+      "confidence_score": -4.470268046305289
+    },
+    {
+      "image_name": "1244485675_822e6efe60.jpg",
+      "generated_caption": "a man <unk> a <unk>",
+      "reference_captions": [
+        "A boy in a grey and white shirt looking at his reflection .",
+        "A boy looking at his reflection .",
+        "A little boy looks at his reflection in a burnished marble wall .",
+        "The child is looking at his reflection in glass .",
+        "The young asian boy looks at his reflection in the park ."
+      ],
+      "confidence_score": -3.43084273788361
+    },
+    {
+      "image_name": "1248734482_3038218f3b.jpg",
+      "generated_caption": "a little girl in a pink shirt <unk> on the grass",
+      "reference_captions": [
+        "A close-up of a young girl with a pink shirt laying on grass .",
+        "A girl in a pink shirt lies on her back in the grass .",
+        "A girl wearing a pink shirt lays on the green grass and looks up .",
+        "A young girl is laying in the grass posing for the camera",
+        "Girl in pink shirt with white writing lying in grass ."
+      ],
+      "confidence_score": -4.595279040045856
+    },
+    {
+      "image_name": "1263801010_5c74bf1715.jpg",
+      "generated_caption": "a man in a red jacket is <unk> in the snow",
+      "reference_captions": [
+        "A man in a red jacket looking out over snow-covered mountains .",
+        "A man in red snow gear looks at an expanse of snow and mountains .",
+        "A person in a red and black ski outfit is looking over a snowy , mountainous landscape .",
+        "A person in a red coat looking out at a snowy landscape .",
+        "View from the summit"
+      ],
+      "confidence_score": -4.449780455691908
+    },
+    {
+      "image_name": "1285874746_486731a954.jpg",
+      "generated_caption": "a woman <unk> a <unk>",
+      "reference_captions": [
+        "a african-american woman stands in the crowd .",
+        "A dark-skinned woman in a blue dress is standing near a crowd .",
+        "A girl in a blue dress walks through a crowd of people .",
+        "A woman in a blue dress stands in a crowd .",
+        "The back of a lady wearing a blue halter top is shown , a crowd in the distance ."
+      ],
+      "confidence_score": -4.062458751117079
+    },
+    {
+      "image_name": "1294578091_2ad02fea91.jpg",
+      "generated_caption": "a man and a woman are sitting on a <unk> <unk>",
+      "reference_captions": [
+        "A female artist showing her painting and signing a paper .",
+        "A man on a phone and woman sitting near a painting .",
+        "A woman drawing portrait while a man on a cellphone watches .",
+        "A woman writing on a notepad near a portrait outdoors",
+        "Standing man on phone with seated woman writing , near artist 's outdoor display ."
+      ],
+      "confidence_score": -4.656973776623922
+    },
+    {
+      "image_name": "1299459550_1fd5594fa2.jpg",
+      "generated_caption": "a little boy <unk> in the water",
+      "reference_captions": [
+        "A boy in swimming trunks .",
+        "A toddler in blue shorts is laying face down on the wet ground .",
+        "A young boy laying face down in water .",
+        "Boy in shorts , face down in shallow , reflective water .",
+        "The boy in swim trunks is laying face down on a watery pavement ."
+      ],
+      "confidence_score": -4.853088357884625
+    },
+    {
+      "image_name": "1332722096_1e3de8ae70.jpg",
+      "generated_caption": "a woman <unk> on a <unk>",
+      "reference_captions": [
+        "Three women standing on a city street .",
+        "Three women walk down the street .",
+        "Two girls and a woman walking on the sidewalk",
+        "Two girls in bright green boots and a woman are together .",
+        "Two young ladies in green boots are walking through an urban area while an older lady wearing black shoes follows them ."
+      ],
+      "confidence_score": -4.821450351530242
+    },
+    {
+      "image_name": "1355833561_9c43073eda.jpg",
+      "generated_caption": "a man <unk> a <unk> <unk>",
+      "reference_captions": [
+        "A child is being thrown in the air playfully .",
+        "A man in an orange jacket playfully tosses a small girl into the air on an empty stretch of beach on an overcast day .",
+        "A man in an orange vest tossing a child into the air on the beach",
+        "A man throws a small child up in the air .",
+        "At a beach , a man in an orange vest tosses a young child into the air ."
+      ],
+      "confidence_score": -4.862334054888307
+    },
+    {
+      "image_name": "1355945307_f9e01a9a05.jpg",
+      "generated_caption": "a <unk> <unk> <unk> <unk> on a track",
+      "reference_captions": [
+        "A man drives an old-fashioned red race car .",
+        "A red race car marked with the number seven is driven by a man in a blue and beige shirt .",
+        "Man driving race car number 7 .",
+        "The man is driving a small red race car around a track .",
+        "The red car has the number seven on the side in a white circle ."
+      ],
+      "confidence_score": -4.419183283249243
+    },
+    {
+      "image_name": "1392272228_cf104086e6.jpg",
+      "generated_caption": "a black dog <unk> in the water",
+      "reference_captions": [
+        "A black dog carrying an object out of the water .",
+        "A black dog carrying some seaweed out of the water .",
+        "A black dog is coming out of the ocean water on the beach with something in its mouth .",
+        "A black dog with a stick in its mouth is walking out of the water onto a beach .",
+        "A dog retrieves a branch from on a beach ."
+      ],
+      "confidence_score": -2.7630645207853597
+    },
+    {
+      "image_name": "1398613231_18de248606.jpg",
+      "generated_caption": "two young girls in a <unk>",
+      "reference_captions": [
+        "A man and a girl sit inside a floating tube in the water .",
+        "A man and a small girl floating on an innertube .",
+        "A man and a young girl in a pink bathing suit float together on an inflatable tube in the water .",
+        "A man and girl float on the water in an innertube .",
+        "This man and little girl are relaxing in an innertube on the water ."
+      ],
+      "confidence_score": -5.774697064418299
+    },
+    {
+      "image_name": "1402640441_81978e32a9.jpg",
+      "generated_caption": "a little girl <unk> a <unk> ball",
+      "reference_captions": [
+        "A boy in red and blue shorts is trying to catch a soccer ball while running in sand .",
+        "A young boy wearing a red bathing suit reaches for a soccer ball .",
+        "Kid guards face from soccer ball",
+        "The little boy in red trunks is attempting to catch a soccer ball that is coming towards him .",
+        "Young boy plays ball on the beach ."
+      ],
+      "confidence_score": -4.375360713381024
+    },
+    {
+      "image_name": "1413956047_c826f90c8b.jpg",
+      "generated_caption": "a group of people standing in the mountains",
+      "reference_captions": [
+        "These three young men are standing on a mountaintop .",
+        "Three are standing on a mountain .",
+        "Three men are standing on top of a mountain .",
+        "Three men posing with scenic mountains in the background",
+        "Three men standing in front of a mountain peak ."
+      ],
+      "confidence_score": -4.029931599722726
+    },
+    {
+      "image_name": "1417295167_5299df6db8.jpg",
+      "generated_caption": "a man in a red jacket <unk> a <unk>",
+      "reference_captions": [
+        "A man holds a drink in one hand and looks at his cellphone .",
+        "A man stares intently at his cellphone as he carries a green-colored drink .",
+        "A man wearing glasses is reading his cellphone and holding a drink in the other hand .",
+        "The man holds a drink and uses his cellphone .",
+        "The young man is holding a drink and checking his cellphone ."
+      ],
+      "confidence_score": -4.419049282522726
+    },
+    {
+      "image_name": "143688895_e837c3bc76.jpg",
+      "generated_caption": "a man <unk> a <unk> rock face",
+      "reference_captions": [
+        "A boy climbing a rock face",
+        "A climber is standing on the rock face next to the pink rope .",
+        "A man climbing a cliff with a rope .",
+        "A man climbs steep rocks .",
+        "A man rock climbing in the forest surrounded by light ."
+      ],
+      "confidence_score": -3.3595589632814775
+    },
+    {
+      "image_name": "1446933195_8fe9725d62.jpg",
+      "generated_caption": "a black dog <unk> in the grass",
+      "reference_captions": [
+        "A black puppy is biting a tree limb .",
+        "A brown puppy chewing on a tree branch .",
+        "A puppy dog is playing with a branch .",
+        "A puppy is gnawing on a plant branch in an uncut grassy area with wood and a barrel nearby .",
+        "A young brown puppy pulls a leafy branch in his teeth in a backyard ."
+      ],
+      "confidence_score": -2.664488599050467
+    },
+    {
+      "image_name": "1459032057_97e73ed6ab.jpg",
+      "generated_caption": "a child <unk> a yellow <unk>",
+      "reference_captions": [
+        "A girl in a striped shirt holds a bun to her mouth .",
+        "A girl with a striped shirt with bread in hands in front of mouth .",
+        "A little girl is eating a piece of bread .",
+        "The little girl in the striped shirt is eating some bread .",
+        "This girl is eating a piece of bread in her striped shirt ."
+      ],
+      "confidence_score": -5.061631990724295
+    },
+    {
+      "image_name": "146098876_0d99d7fb98.jpg",
+      "generated_caption": "a group of children walking in the street",
+      "reference_captions": [
+        "A boy and three girls in blue school uniforms walk down a dirt-covered road .",
+        "A group of children in blue uniforms walk to class .",
+        "Four children in uniforms stand in front of palm trees .",
+        "Four teens in school uniforms walk down a tropical road .",
+        "Group of school children in blue school uniforms ."
+      ],
+      "confidence_score": -4.87550410429078
+    },
+    {
+      "image_name": "146577645_91b570c0d0.jpg",
+      "generated_caption": "a man <unk> a <unk> in the <unk>",
+      "reference_captions": [
+        "A kayaker goes through the waves holding his paddle .",
+        "A man paddles down the rapids in a kayak .",
+        "A man with a red helmet kayaking .",
+        "A person maneuvers rapids while riding a watercraft .",
+        "Man kayaking through rough waters ."
+      ],
+      "confidence_score": -3.4750275606166414
+    },
+    {
+      "image_name": "1469000260_5d473c8283.jpg",
+      "generated_caption": "a brown dog <unk> a brown dog",
+      "reference_captions": [
+        "A big tan dog lays on the ground looking to the side .",
+        "A large dog sits in the grass .",
+        "A large tan dog sits on the edge of the woods .",
+        "Brown dog laying on gravel with grass and trees in background .",
+        "The large brown dog is sitting on the path next to a tree ."
+      ],
+      "confidence_score": -3.6955822847572533
+    },
+    {
+      "image_name": "1473618073_7db56a5237.jpg",
+      "generated_caption": "a little girl is sitting on a <unk> swing",
+      "reference_captions": [
+        "A boy on a green plastic swing .",
+        "A little boy sitting on a green swing .",
+        "A smiling boy plays on a green plastic swing-toy .",
+        "Boy swinging on a swing set .",
+        "Little boy riding on green swing in a playground ."
+      ],
+      "confidence_score": -5.01153643496671
+    },
+    {
+      "image_name": "1480712062_32a61ad4b7.jpg",
+      "generated_caption": "two <unk> <unk> in the <unk>",
+      "reference_captions": [
+        "A person in a scuba suit holds a very small lobster .",
+        "A scuba diver holds up a small lobster underwater .",
+        "A scuba diver underwater holding a small lobster",
+        "Scuba diver under the water holding small crustacean in his hands .",
+        "The scuba diver shows off something he found underwater ."
+      ],
+      "confidence_score": -4.547619421981484
+    },
+    {
+      "image_name": "1510078253_96e9ec50e7.jpg",
+      "generated_caption": "a brown dog <unk> a <unk> ball in its mouth",
+      "reference_captions": [
+        "A dog trying to catch a ball .",
+        "A dog with fangs revealed is about to bite a ball with paw prints on it .",
+        "A intense looking dog is about to grab a ball in mid bounce .",
+        "Brown dog trying to bite a white ball with yellow , green and blue puppy toes",
+        "The brown dog is about to bite a paw printed ball ."
+      ],
+      "confidence_score": -3.5657677419296787
+    },
+    {
+      "image_name": "1514957266_a19827c538.jpg",
+      "generated_caption": "a black and white dog is running through the grass",
+      "reference_captions": [
+        "A black dog runs on green grass with its mouth open .",
+        "a dog runs across the grass .",
+        "A gray dog runs along the green grass .",
+        "A lean dog runs through green grass .",
+        "The dog runs across the green lush grass ."
+      ],
+      "confidence_score": -4.215703467748213
+    },
+    {
+      "image_name": "1515025681_999199cb79.jpg",
+      "generated_caption": "a man <unk> a <unk>",
+      "reference_captions": [
+        "A man in a white shirt and sunglasses gazes into the horizon .",
+        "An older man wearing sunglasses and a white t-shirt",
+        "An old man with sunglasses and a watch around kids",
+        "Bald man in sunglasses",
+        "Bald , older man with sunglasses and white shirt , blurry crowd around him ."
+      ],
+      "confidence_score": -3.6334740272237296
+    },
+    {
+      "image_name": "152029243_b3582c36fa.jpg",
+      "generated_caption": "a man in a red jacket is riding a bike in the <unk>",
+      "reference_captions": [
+        "A man maneuvers a motorcycle through a rocky stream .",
+        "A motorcycle rider navigating his bike over a stone obstacle .",
+        "A young man is in a stream with his dirt bike .",
+        "BMX biker in shallow stream with current performing a wheelie",
+        "The man is dirt bike riding is the stream and climbing the rocks on the bank of the water ."
+      ],
+      "confidence_score": -4.6971753547708985
+    },
+    {
+      "image_name": "1525153022_06c48dbe52.jpg",
+      "generated_caption": "a black and brown dog <unk> in the water",
+      "reference_captions": [
+        "A black dog is running through the shallow edge of a large body of water .",
+        "A black dog is running through the water .",
+        "A black dog jumps high out of the water .",
+        "a black and tan dobbermen running through the ocean .",
+        "The dog runs through the water ."
+      ],
+      "confidence_score": -2.7641404407091414
+    },
+    {
+      "image_name": "1528205014_1323aa9dfd.jpg",
+      "generated_caption": "a man in a yellow shirt <unk> a <unk>",
+      "reference_captions": [
+        "A man in a yellow jacket with many colorful wristbands is smiling .",
+        "A man in a yellow shirt wearing multi-colored plastic jewelry .",
+        "A man is wearing a rainbow colored necklace and smiling .",
+        "Black man poses for photo .",
+        "The man wearing a colorful outfit is holding something in both hands and smiling for the camera ."
+      ],
+      "confidence_score": -4.385632966252203
+    },
+    {
+      "image_name": "1557838421_a33f2a4911.jpg",
+      "generated_caption": "two dogs <unk> in a field",
+      "reference_captions": [
+        "A grey and white dog is biting the ear of a white and brown dog .",
+        "The brown and white dog nips at the yellow dog .",
+        "There are two dogs playing with each other .",
+        "Two dogs wrestle with each other with their teeth bared .",
+        "Two large dogs attempt to bite each other playfully ."
+      ],
+      "confidence_score": -3.935516559834666
+    },
+    {
+      "image_name": "1563731247_7f21d8bec0.jpg",
+      "generated_caption": "a boy <unk> in the <unk>",
+      "reference_captions": [
+        "A child plays on the ground in a pile of leaves .",
+        "a little girl is playing in the hay .",
+        "Little girl buried in hay throwing hay around at a lady .",
+        "The girls play in the pumpkin patch .",
+        "Two children are playing in a pile of hay with the sun shining overhead ."
+      ],
+      "confidence_score": -5.298365548015868
+    },
+    {
+      "image_name": "1570723692_3a2b064d43.jpg",
+      "generated_caption": "a brown dog is <unk> on the grass",
+      "reference_captions": [
+        "A large orange dog and a little orange dog with another third dog in the grass .",
+        "Three dogs greeting each other in a field of green grass .",
+        "Three dogs sniffing each other .",
+        "Two dogs and a puppy .",
+        "Two little dogs are lying on the green grass and a larger dog looks down on them ."
+      ],
+      "confidence_score": -4.702721425096943
+    }
+  ]
+}

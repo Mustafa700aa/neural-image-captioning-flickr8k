@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.coverage
+htmlcov
+.git
+.gitignore
+.env
+checkpoints/*.pt
+!checkpoints/caption_model_best.pt
+data/features/*.pt
+.ipynb_checkpoints

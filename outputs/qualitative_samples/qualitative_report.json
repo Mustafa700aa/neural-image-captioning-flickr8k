@@ -1,0 +1,127 @@
+[
+  {
+    "sample_index": 1,
+    "image_name": "1007129816_e794419615.jpg",
+    "generated_caption_beam": "a <unk> <unk>",
+    "generated_caption_greedy": "a man in a <unk> <unk>",
+    "reference_captions": [
+      "A man in an orange hat starring at something .",
+      "A man wears an orange hat and glasses .",
+      "A man with gauges and glasses is wearing a Blitz hat .",
+      "A man with glasses is wearing a beer can crocheted hat .",
+      "The man with pierced ears is wearing glasses and an orange hat ."
+    ],
+    "metrics": {
+      "bleu_1": 0.045111761078870896,
+      "bleu_2": 0.017471709937655493,
+      "bleu_3": 0.016080023155929657,
+      "bleu_4": 0.015377056977980369,
+      "rouge_1": 0.18181818181818182,
+      "rouge_2": 0.0,
+      "rouge_l": 0.18181818181818182,
+      "meteor": 0.05952380952380952
+    },
+    "card_image": "outputs\\qualitative_samples\\sample_01_1007129816_e794419615_card.png",
+    "attention_image": "outputs\\qualitative_samples\\sample_01_1007129816_e794419615_attention.png"
+  },
+  {
+    "sample_index": 2,
+    "image_name": "1022454332_6af2c1449a.jpg",
+    "generated_caption_beam": "a <unk> <unk>",
+    "generated_caption_greedy": "a <unk> in the <unk>",
+    "reference_captions": [
+      "A child and a woman are at waters edge in a big city .",
+      "a large lake with a lone duck swimming in it with several people around the edge of it .",
+      "A little boy at a lake watching a duck .",
+      "A young boy waves his hand at the duck in the water surrounded by a green park .",
+      "Two people are at the edge of a lake , facing the water and the city skyline ."
+    ],
+    "metrics": {
+      "bleu_1": 0.03232398928813501,
+      "bleu_2": 0.012519027219593387,
+      "bleu_3": 0.011521840065975154,
+      "bleu_4": 0.011018142789200103,
+      "rouge_1": 0.16666666666666666,
+      "rouge_2": 0.0,
+      "rouge_l": 0.16666666666666666,
+      "meteor": 0.053763440860215055
+    },
+    "card_image": "outputs\\qualitative_samples\\sample_02_1022454332_6af2c1449a_card.png",
+    "attention_image": "outputs\\qualitative_samples\\sample_02_1022454332_6af2c1449a_attention.png"
+  },
+  {
+    "sample_index": 3,
+    "image_name": "1045521051_108ebc19be.jpg",
+    "generated_caption_beam": "a <unk> <unk>",
+    "generated_caption_greedy": "a man in a <unk> <unk>",
+    "reference_captions": [
+      "A person eats takeout while watching a small television .",
+      "A person sits on the floor and eats in front of a television .",
+      "A television with a picture of a girl on it .",
+      "A young man sits on the floor by the television with a fast food meal in front of him .",
+      "Someone is laying in front of the TV eating food ."
+    ],
+    "metrics": {
+      "bleu_1": 0.03232398928813501,
+      "bleu_2": 0.012519027219593387,
+      "bleu_3": 0.011521840065975154,
+      "bleu_4": 0.011018142789200103,
+      "rouge_1": 0.16666666666666666,
+      "rouge_2": 0.0,
+      "rouge_l": 0.16666666666666666,
+      "meteor": 0.053763440860215055
+    },
+    "card_image": "outputs\\qualitative_samples\\sample_03_1045521051_108ebc19be_card.png",
+    "attention_image": "outputs\\qualitative_samples\\sample_03_1045521051_108ebc19be_attention.png"
+  },
+  {
+    "sample_index": 4,
+    "image_name": "1082379191_ec1e53f996.jpg",
+    "generated_caption_beam": "a <unk> <unk>",
+    "generated_caption_greedy": "a <unk> in the <unk>",
+    "reference_captions": [
+      "A lady and a man with no shirt sit on a dock .",
+      "A man and a woman are sitting on a dock together .",
+      "A man and a woman sitting on a dock .",
+      "A man and woman sitting on a deck next to a lake .",
+      "A shirtless man and a woman sitting on a dock ."
+    ],
+    "metrics": {
+      "bleu_1": 0.03232398928813501,
+      "bleu_2": 0.012519027219593387,
+      "bleu_3": 0.011521840065975154,
+      "bleu_4": 0.011018142789200103,
+      "rouge_1": 0.16666666666666666,
+      "rouge_2": 0.0,
+      "rouge_l": 0.16666666666666666,
+      "meteor": 0.053763440860215055
+    },
+    "card_image": "outputs\\qualitative_samples\\sample_04_1082379191_ec1e53f996_card.png",
+    "attention_image": "outputs\\qualitative_samples\\sample_04_1082379191_ec1e53f996_attention.png"
+  },
+  {
+    "sample_index": 5,
+    "image_name": "1107246521_d16a476380.jpg",
+    "generated_caption_beam": "a <unk>",
+    "generated_caption_greedy": "a dog <unk> in the",
+    "reference_captions": [
+      "a black dog jumping to catch a rope toy",
+      "A black dog playing fetch with a ball of rope .",
+      "A black dog pounces to get a rope toy .",
+      "A black dog running after his rope toy .",
+      "A large black dog is playing in a grassy yard ."
+    ],
+    "metrics": {
+      "bleu_1": 0.01509869171115925,
+      "bleu_2": 0.006752340207492941,
+      "bleu_3": 0.005172807593327376,
+      "bleu_4": 0.004515562049663387,
+      "rouge_1": 0.2,
+      "rouge_2": 0.0,
+      "rouge_l": 0.2,
+      "meteor": 0.06024096385542168
+    },
+    "card_image": "outputs\\qualitative_samples\\sample_05_1107246521_d16a476380_card.png",
+    "attention_image": "outputs\\qualitative_samples\\sample_05_1107246521_d16a476380_attention.png"
+  }
+]

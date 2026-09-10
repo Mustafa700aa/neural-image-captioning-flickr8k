@@ -1,0 +1,88 @@
+# ==============================================================================
+# Git Ignore Rules for Neural Image Caption Generator (Task 6.2)
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# C/C++ extensions
+*.obj
+*.o
+
+# Distribution / packaging
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Environment Variables
+*.log
+.env
+.env.*
+!.env.example
+
+# Large Dataset Files (Flickr8k Images > 1GB)
+dataset/Images/*
+!dataset/Images/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+
+# Cached Spatial Features (> 6GB of extracted .pt files)
+data/features/*
+!data/features/.gitkeep
+
+# Large PyTorch Model Checkpoints (> 100MB per .pt file)
+# Note: Checkpoints are shared via HuggingFace Hub as per requirement 10
+checkpoints/*.pt
+checkpoints/*.pth
+checkpoints/*.bin
+checkpoints/*.ckpt
+checkpoints/*.onnx
+!checkpoints/.gitkeep
+!checkpoints/training_history.json

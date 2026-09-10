@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neural-image-captioning-flickr8k"
+version = "1.0.0"
+description = "Production-oriented Image Caption Generator with Pretrained CNNs, Bahdanau Spatial Attention, and LSTM Decoders on Flickr8k"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "AI Engineer", email = "engineer@example.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "pillow>=9.5.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "nltk>=3.8.1",
+    "rouge-score>=0.1.2",
+    "evaluate>=0.4.0",
+    "matplotlib>=3.7.0",
+    "tqdm>=4.65.0",
+    "pydantic>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "python-multipart>=0.0.6",
+    "streamlit>=1.24.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
