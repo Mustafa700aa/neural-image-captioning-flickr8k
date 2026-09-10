@@ -1,149 +1,188 @@
 # Neural Image Captioning on Flickr8k
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688.svg)](https://fastapi.tiangolo.com)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.24+-FF4B4B.svg)](https://streamlit.io)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](tests/)
+[![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+[![FastAPI 0.100+](https://img.shields.io/badge/FastAPI-0.100+-009688.svg)](https://fastapi.tiangolo.com)
+[![Streamlit 1.24+](https://img.shields.io/badge/Streamlit-1.24+-FF4B4B.svg)](https://streamlit.io)
+[![Tests Passing](https://img.shields.io/badge/Tests-22%20Passing-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Mustafa700aa-181717?logo=github)](https://github.com/Mustafa700aa/neural-image-captioning-flickr8k)
 
-An end-to-end, production-grade Image Caption Generation system bridging **Computer Vision** and **Natural Language Processing (NLP)**. Built upon the **Flickr8k Dataset** (8,091 images $\times$ 5 paired reference captions = 40,457 caption pairs), this project transforms experimental deep learning notebooks into a clean, modular, tested, and containerized software architecture.
+An end-to-end, production-grade Image Caption Generation system bridging **Computer Vision** and **Natural Language Processing (NLP)**. Built upon the standard **Flickr8k Dataset** (8,091 images with 5 reference captions each = 40,457 caption pairs), this project transforms experimental deep learning workflows into a modular, test-driven, containerized, and deployable software application.
 
 ---
 
-## 🌟 Key Architecture & Deep Learning Mechanics
+## Table of Contents
 
+- [Key Architecture & Deep Learning Mechanics](#architecture)
+- [Repository Structure](#repository-structure)
+- [Quickstart Guide](#quickstart)
+- [Quantitative Benchmark Evaluation](#benchmarks)
+- [Qualitative Analysis & Visual Attention Cards](#qualitative-analysis)
+- [Interactive Streamlit Web Dashboard](#streamlit-dashboard)
+- [Production FastAPI REST Service](#fastapi-service)
+- [Docker Container Deployment](#docker)
+- [Model Storage & Hugging Face Hub](#model-hub)
+- [Automated Test Suite](#testing)
+- [License & Author](#license)
+
+---
+
+## <a id="architecture"></a>Key Architecture & Deep Learning Mechanics
+
+The system adopts an **Encoder-Decoder with Additive Spatial Attention** and **Adaptive Gating**:
+
+```mermaid
+flowchart TD
+    subgraph VisionEncoder ["1. Vision Encoder (Transfer Learning)"]
+        A["Input Image (3 x 224 x 224)"] --> B["Pretrained ResNet-50 Backbone"]
+        B --> C["Spatial Feature Map (14 x 14 Grid, D = 2048)"]
+    end
+
+    subgraph AttentionMechanism ["2. Bahdanau Additive Attention Layer"]
+        C --> D["Spatial Alignment: e_t,i = score(v_i, h_t)"]
+        H_prev["Decoder State h_t"] --> D
+        D --> E["Softmax Attention Weights alpha_t,i"]
+        E --> F["Visual Context Vector z_t = sum(alpha_t,i * v_i)"]
+    end
+
+    subgraph DecoderRecurrence ["3. Gated LSTM Decoder"]
+        WordIn["Input Token y_t-1 (512-d Embedding)"] --> Gate["Adaptive Sigmoid Gate beta_t"]
+        H_prev --> Gate
+        F --> Gate
+        Gate --> GatedContext["Gated Context: beta_t * z_t"]
+        GatedContext --> LSTM["LSTM Recurrent Step (512 Units)"]
+        WordIn --> LSTM
+        LSTM --> Proj["Linear Classifier Head (Vocab: 2,991)"]
+        Proj --> NextWord["Predicted Word y_t (Greedy / Beam Search)"]
+    end
 ```
-┌─────────────────────────┐      ┌───────────────────────────────┐      ┌─────────────────────────┐
-│       Input Image       │ ───► │      Pretrained ResNet-50     │ ───► │  Spatial Feature Maps   │
-│       (3 x 224 x 224)   │      │   (Transfer Learning Vision)  │      │     (196 x 2048)        │
-└─────────────────────────┘      └───────────────────────────────┘      └───────────┬─────────────┘
-                                                                                    │
-                                 ┌───────────────────────────────┐                  │
-                                 │   Bahdanau Spatial Attention  │ ◄────────────────┘
-                                 │     α_t = Softmax(v_a^T tanh) │
-                                 └───────────────┬───────────────┘
-                                                 │ Context Vector z_t
-                                                 ▼
-┌─────────────────────────┐      ┌───────────────────────────────┐      ┌─────────────────────────┐
-│     Word Embedding      │ ───► │     LSTM Decoder with Gate    │ ───► │   Generated Caption     │
-│    (512-d Word Vectors) │      │   β_t = σ(W_g h_t) Gating     │      │ (Greedy / Beam Search)  │
-└─────────────────────────┘      └───────────────────────────────┘      └─────────────────────────┘
-```
+
 ### 1. Vision Encoder (Transfer Learning)
 - Pretrained **ResNet-50** backbone (omitting its final fully connected classification layer) extracts high-level convolutional feature maps from input images.
-- The spatial output maintains a $14 \times 14$ grid configuration, yielding $P = 196$ distinct spatial regions with a feature dimension of $D = 2048$.
+- The spatial representation preserves a $14 \times 14$ grid ($P = 196$ distinct spatial regions, feature dimension $D = 2048$).
 - Implements offline feature extraction pipelines with disk caching (`data/features/*.pt`) to eliminate redundant forward passes and optimize training throughput.
 
 ### 2. Bahdanau Additive Spatial Attention
-- Computes alignment scores between the decoder's hidden state $h_t$ and spatial feature vectors $v_i$ via an additive feedforward structure:
+Computes soft alignment scores between the decoder hidden state $h_t$ and spatial feature vectors $v_i \in \{1, \dots, 196\}$ via an additive feedforward network:
 
 $$
-e_{t,i} = v_a^T \tanh(W_{enc}v_i + W_{dec}h_t + b_a)
-$$
-
-$$
-\alpha_{t,i}
-=
-\frac{\exp(e_{t,i})}
-{\sum_{k=1}^{196}\exp(e_{t,k})}
+e_{t, i} = v_a^\top \tanh\left(W_{\text{enc}} v_i + W_{\text{dec}} h_t + b_a\right)
 $$
 
 $$
-z_t = \sum_{i=1}^{196}\alpha_{t,i}v_i
+\alpha_{t, i} = \frac{\exp(e_{t, i})}{\sum_{k=1}^{196} \exp(e_{t, k})}
+$$
+
+$$
+z_t = \sum_{i=1}^{196} \alpha_{t, i} v_i
 $$
 
 ### 3. Adaptive Gating & LSTM Decoder
-- Employs a learned sigmoid gating mechanism $\beta_t = \sigma(W_gh_t)$ to dynamically weight the visual context vector relative to the language model representation before the LSTM recurrence step.
-- Utilizes teacher forcing during training, alongside **Greedy Search** and **Beam Search** ($k = 5$ with length penalty normalization) for generation during inference.
+- Employs a learned sigmoid gating mechanism $\beta_t = \sigma(W_g h_t)$ to dynamically weight the visual context vector relative to the language model representation before the LSTM recurrence step.
+- Utilizes **Teacher Forcing** during training, alongside **Greedy Search** and **Beam Search** ($k = 5$ with length penalty normalization) for generation during inference.
 
 ### 4. Doubly Stochastic Attention Regularization
-- Integrates a doubly stochastic penalty alongside standard Cross-Entropy loss to penalize under-attention or over-attention to specific image regions across the generation sequence:
+Integrates a doubly stochastic penalty alongside standard Cross-Entropy loss to encourage the model to attend equally to all regions of the image across the sequence:
 
 $$
-\mathcal{L}_{\text{total}}
-=
-\mathcal{L}_{\text{CE}}
-+
-\lambda
-\sum_{i=1}^{196}
-\left(
-1-\sum_{t=1}^{T}\alpha_{t,i}
-\right)^2
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{CE}} + \lambda \sum_{i=1}^{196} \left( 1 - \sum_{t=1}^{T} \alpha_{t, i} \right)^2
 $$
 
 ---
 
-## 📁 Repository Structure
+## <a id="repository-structure"></a>Repository Structure
 
 ```
 neural-image-captioning-flickr8k/
-├── dataset/                   # Flickr8k dataset (8,091 images & captions.txt)
-│   ├── Images/                # 8,091 JPEG images
-│   └── captions.txt           # 40,457 reference caption pairs
-├── data/
-│   ├── processed/             # Processed datasets and vocab.json
-│   └── features/              # Cached spatial feature tensors (.pt)
-├── notebooks/                 # "From Notebook to Production" progression
-│   ├── 01_eda_and_data_prep.ipynb
-│   ├── 02_model_training_and_eval.ipynb
-│   └── 03_inference_and_attention_viz.ipynb
-├── src/                       # Modular Python package
-│   ├── config.py              # Strongly-typed Dataclass configurations
-│   ├── data/                  # Dataset, Vocabulary, Transforms, Downloader
-│   ├── models/                # EncoderCNN, BahdanauAttention, Decoder, CaptionLoss
-│   ├── training/              # Trainer engine, Callbacks, Feature Extractor
-│   ├── evaluation/            # BLEU (1-4), ROUGE-L, METEOR, Attention visualizer
-│   ├── inference/             # Greedy Search, Beam Search, CaptionPredictor
-│   └── utils/                 # Logging, device detection, seed reproducibility
-├── api/                       # Production FastAPI REST API
-│   ├── app.py                 # Endpoints (/health, /model-info, /predict, /predict-base64)
-│   └── schemas.py             # Pydantic validation schemas
-├── app/                       # Streamlit Interactive Web Application
-│   └── streamlit_app.py       # Live UI with gallery, camera, and attention heatmaps
-├── tests/                     # Automated PyTest test suite
-│   ├── test_vocabulary.py
-│   ├── test_dataset.py
-│   ├── test_models.py
-│   ├── test_metrics.py
-│   ├── test_inference.py
-│   └── test_api.py
-├── scripts/                   # CLI execution scripts
-│   ├── download_data.py
-│   ├── extract_features.py
-│   ├── train.py
-│   └── evaluate.py
-├── docker/                    # Docker containerization
-│   ├── Dockerfile
-│   ├── docker-compose.yml
-│   └── .dockerignore
-├── pyproject.toml             # Package build specification
-├── requirements.txt           # Production dependencies
-├── Makefile                   # Developer CLI automation
-└── README.md
+|-- api/                       # Production FastAPI REST API
+|   |-- app.py                 # Endpoints (/health, /model-info, /predict, /predict-base64)
+|   |-- schemas.py             # Pydantic request/response validation schemas
+|   `-- __init__.py
+|-- app/                       # Interactive Streamlit Web Application
+|   `-- streamlit_app.py       # Live UI: image upload, webcam, beam tuning & attention heatmaps
+|-- checkpoints/               # Model weights and training telemetry
+|   |-- caption_model_best.pt  # Best checkpoint (distributed via Hugging Face Hub)
+|   |-- training_history.json  # Loss & perplexity history across all epochs
+|   `-- .gitkeep
+|-- data/                      # Data storage & pre-extracted features
+|   |-- features/              # Pre-extracted ResNet-50 tensors (.pt, git-ignored)
+|   `-- processed/             # Serialized vocabulary mappings (vocab.json)
+|-- dataset/                   # Flickr8k dataset
+|   |-- captions.txt           # 40,457 paired reference captions
+|   |-- Images/                # 8,091 JPEG images (git-ignored, downloadable via script)
+|   `-- .gitkeep
+|-- docker/                    # Containerization & Deployment
+|   |-- Dockerfile             # Multi-stage production container image
+|   |-- docker-compose.yml     # Orchestration configuration
+|   `-- requirements.docker.txt
+|-- notebooks/                 # Workflow progression & experiments
+|   |-- 01_eda_and_data_prep.ipynb
+|   |-- 02_model_training_and_eval.ipynb
+|   `-- 03_inference_and_attention_viz.ipynb
+|-- outputs/                   # Quantitative logs & qualitative samples
+|   |-- evaluation_results.json
+|   |-- metrics_log.csv
+|   |-- training_curves.png
+|   `-- qualitative_samples/   # Qualitative prediction cards & attention heatmaps
+|-- scripts/                   # CLI execution & automation scripts
+|   |-- download_data.py       # Automated Flickr8k downloader via KaggleHub
+|   |-- extract_features.py    # ResNet-50 feature pre-extraction CLI
+|   |-- train.py               # Complete training execution script
+|   |-- evaluate.py            # Quantitative benchmark evaluation script
+|   `-- upload_to_hub.py       # Checkpoint publisher for Hugging Face Hub
+|-- src/                       # Core Python modular library
+|   |-- config.py              # Strongly-typed Dataclass configurations
+|   |-- data/                  # Dataset, Vocabulary, Transforms, Downloader
+|   |-- evaluation/            # BLEU (1-4), ROUGE-L, METEOR, Visualizers
+|   |-- inference/             # Greedy Search, Beam Search, CaptionPredictor
+|   |-- models/                # EncoderCNN, BahdanauAttention, Decoder, Loss
+|   |-- training/              # Trainer engine, Callbacks, Feature Extractor
+|   `-- utils/                 # Logging, device detection, hub integration
+|-- tests/                     # Automated PyTest test suite (22 tests)
+|   |-- test_api.py
+|   |-- test_dataset.py
+|   |-- test_inference.py
+|   |-- test_metrics.py
+|   |-- test_models.py
+|   `-- test_vocabulary.py
+|-- .dockerignore
+|-- .gitattributes
+|-- .gitignore
+|-- LICENSE                    # MIT License
+|-- Makefile                   # Developer CLI automation
+|-- pyproject.toml             # Python packaging specification
+|-- README.md                  # Project documentation
+`-- requirements.txt           # Production dependencies
 ```
 
 ---
 
-## 🚀 Quickstart Guide
+## <a id="quickstart"></a>Quickstart Guide
 
 ### 1. Installation
 ```bash
-# Clone and navigate to project folder
+# Clone repository
 git clone https://github.com/Mustafa700aa/neural-image-captioning-flickr8k.git
 cd neural-image-captioning-flickr8k
+
+# Create and activate virtual environment (optional)
+python -m venv venv
+venv\Scripts\activate      # On Windows
+# source venv/bin/activate # On Linux/macOS
 
 # Install dependencies
 pip install -r requirements.txt
 python -c "import nltk; nltk.download('wordnet')"
 ```
 
-### 2. Pre-extract CNN Features (Optional for Fast Training)
+### 2. Pre-extract CNN Spatial Features (Optional, for Fast Training)
+Pre-computing ResNet-50 feature maps speeds up training by avoiding redundant forward passes on raw images:
 ```bash
 python scripts/extract_features.py --backbone resnet50 --batch-size 32
 ```
 
-### 3. Train the Caption Generator
+### 3. Train the Caption Model
 ```bash
 python scripts/train.py --epochs 15 --batch-size 32 --backbone resnet50 --decoder-lr 4e-4
 ```
@@ -155,84 +194,145 @@ python scripts/evaluate.py --method beam --beam-width 5
 
 ---
 
-## 📊 Evaluation Benchmark Metrics & Qualitative Examples
+## <a id="benchmarks"></a>Quantitative Benchmark Evaluation
 
-### Quantitative Test Split Benchmarks (against 5 Human References)
+The trained model was evaluated against the test split with 5 human reference captions per image:
 
-| Metric | Score | Description | Purpose |
-|---|---|---|---|
-| **BLEU-1** | **68.4%** | 1-gram precision with brevity penalty | Lexical accuracy |
-| **BLEU-2** | **47.9%** | 2-gram precision | Phrase fluency |
-| **BLEU-3** | **32.8%** | 3-gram precision | Complex phrase structure |
-| **BLEU-4** | **22.5%** | 4-gram precision | High-order syntactic alignment |
-| **ROUGE-1** | **52.6%** | Unigram recall/precision F1 | Content coverage |
-| **ROUGE-2** | **31.2%** | Bigram recall/precision F1 | Context fluency |
-| **ROUGE-L** | **48.7%** | Longest Common Subsequence F1 | Structural recall |
-| **METEOR** | **26.4%** | Harmonic mean with stemming & synonymy | Semantic fidelity |
+| Benchmark Metric | Score | Formulation / Details | Evaluation Purpose |
+| :--- | :---: | :--- | :--- |
+| **BLEU-1** | **68.4%** | Unigram precision with Brevity Penalty (BP) | Lexical accuracy |
+| **BLEU-2** | **47.9%** | Bigram geometric mean precision | Local phrase fluency |
+| **BLEU-3** | **32.8%** | Trigram geometric mean precision | Extended phrase structure |
+| **BLEU-4** | **22.5%** | 4-gram geometric mean precision | High-order syntactic alignment |
+| **ROUGE-1** | **52.6%** | Unigram overlap F1 score | Lexical coverage |
+| **ROUGE-2** | **31.2%** | Bigram overlap F1 score | Contextual overlap |
+| **ROUGE-L** | **48.7%** | Longest Common Subsequence (LCS) F1 | Sentence-level structural recall |
+| **METEOR** | **26.4%** | Harmonic mean with stemming and WordNet synonymy | Semantic fidelity |
 
----
+### Training Loss & Validation Perplexity Progression
 
-### Qualitative Evaluation: Input Image ➔ Generated Caption ➔ Reference Captions
+The training loss curves demonstrate steady convergence across epochs:
 
-| Test Image Sample | Generated Caption (Beam Search, k=5) | Human Reference Captions (Flickr8k Standard) | Metrics |
-|---|---|---|---|
-| `sample_01.jpg`<br>*(Dog running)* | **"a brown dog is running through the green grass"** | 1. a brown dog is running through the green grass<br>2. a cute dog playing on a lawn outside<br>3. a brown dog chasing something in the yard<br>4. a pet dog running in the park<br>5. a furry dog outdoors on the grass | **BLEU-1:** 94.2%<br>**BLEU-4:** 88.0%<br>**ROUGE-L:** 92.5% |
-| `sample_02.jpg`<br>*(Cyclist)* | **"a person riding a bicycle down a city street"** | 1. a person riding a bicycle on a city street<br>2. a cyclist wearing a helmet riding down the road<br>3. someone commuting on a bike during the day<br>4. a person on a bike next to traffic<br>5. a bicycle rider navigating city street | **BLEU-1:** 88.9%<br>**BLEU-4:** 72.4%<br>**ROUGE-L:** 85.0% |
-| `sample_03.jpg`<br>*(Children Soccer)*| **"young children playing soccer on a green field"** | 1. a group of children playing soccer on the field<br>2. kids kicking a ball during a soccer match<br>3. young boys and girls playing sports outdoors<br>4. a children soccer team on the green pitch<br>5. kids having fun playing football outside | **BLEU-1:** 85.7%<br>**BLEU-4:** 64.1%<br>**ROUGE-L:** 80.2% |
+<p align="center">
+  <img src="outputs/training_curves.png" alt="Training and Validation Curves" width="750">
+</p>
 
 ---
 
-## 🌐 Production Deployment & Serving
+## <a id="qualitative-analysis"></a>Qualitative Analysis & Visual Attention Cards
 
-### 1. Interactive Streamlit Web Application
-Launch the rich web dashboard featuring live image uploads, webcam capture, beam search tuning, and dynamic spatial attention heatmap inspection:
+Visual inspection of generated captions comparing Beam Search ($k = 5$) against human references:
+
+| Sample 1: Action Scene | Sample 2: Lakeside Context |
+| :---: | :---: |
+| <img src="outputs/qualitative_samples/sample_01_1007129816_e794419615_card.png" width="420" alt="Sample 1 Card"> | <img src="outputs/qualitative_samples/sample_02_1022454332_6af2c1449a_card.png" width="420" alt="Sample 2 Card"> |
+| **Generated Caption:** *"a man in an orange hat"* | **Generated Caption:** *"a child at the edge of the lake"* |
+
+| Sample 3: Multi-Subject Scene | Sample 4: Sports Action |
+| :---: | :---: |
+| <img src="outputs/qualitative_samples/sample_03_1045521051_108ebc19be_card.png" width="420" alt="Sample 3 Card"> | <img src="outputs/qualitative_samples/sample_04_1082379191_ec1e53f996_card.png" width="420" alt="Sample 4 Card"> |
+| **Generated Caption:** *"two dogs playing in the snow"* | **Generated Caption:** *"a baseball player sliding into base"* |
+
+---
+
+## <a id="streamlit-dashboard"></a>Interactive Streamlit Web Dashboard
+
+The project includes an interactive web interface with dynamic attention heatmaps, beam search controls, camera capture, and preset sample exploration:
+
 ```bash
 streamlit run app/streamlit_app.py
 ```
 *Access in browser at: `http://localhost:8501`*
 
-### 2. FastAPI REST API
-Launch the high-throughput asynchronous API server:
+**Dashboard Capabilities:**
+- **Image Input**: Drag-and-drop JPEG/PNG images, take a live photo via webcam, or choose from preset Flickr8k gallery samples.
+- **Decoding Strategy**: Switch between fast Greedy Decoding and tunable Beam Search ($k = 1 \dots 10$).
+- **Attention Heatmaps**: Visualize spatial attention weights overlaid word-by-word on top of the original image to inspect where the model is looking as each word is generated.
+
+---
+
+## <a id="fastapi-service"></a>Production FastAPI REST Service
+
+Launch the asynchronous high-throughput REST API server:
+
 ```bash
 uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 ```
-*Interactive Swagger UI docs available at: `http://localhost:8000/docs`*
+*Interactive Swagger UI documentation is available at: `http://localhost:8000/docs`*
 
-#### API Usage Examples:
+### API Endpoints:
+- `GET /health` - Service health and GPU availability status.
+- `GET /model-info` - Model architecture, dimensions, and vocabulary metadata.
+- `POST /predict` - Accepts multipart form-data image upload and returns generated caption and execution latency.
+- `POST /predict-base64` - Accepts base64 encoded image string for headless integrations.
+
+#### Example Request (cURL):
 ```bash
-# Health Check
-curl -X GET http://localhost:8000/health
-
-# Image Captioning via Multipart Upload
 curl -X POST "http://localhost:8000/predict" \
   -F "file=@dataset/Images/1000268201_693b08cb0e.jpg" \
   -F "method=beam" \
   -F "beam_width=5"
 ```
 
-### 3. Docker Container Deployment
-```bash
-docker-compose -f docker/docker-compose.yml up --build
+#### Example JSON Response:
+```json
+{
+  "caption": "a dog runs across the grass",
+  "method": "beam",
+  "beam_width": 5,
+  "execution_time_ms": 78.4,
+  "tokens": ["a", "dog", "runs", "across", "the", "grass"]
+}
 ```
 
 ---
 
-## ☁️ Model Storage & Sharing (HuggingFace Hub)
+## <a id="docker"></a>Docker Container Deployment
 
-The trained model checkpoint (`caption_model_best.pt`), vocabulary (`vocab.json`), and model card are hosted on HuggingFace Hub:
-- 🔗 **Public Model Repository**: [https://huggingface.co/AntigravityAI/image-caption-flickr8k](https://huggingface.co/AntigravityAI/image-caption-flickr8k)
+Run the system inside isolated Docker containers using Docker Compose:
 
-To push a newly trained model directly to HuggingFace Hub:
 ```bash
-python scripts/upload_to_hub.py --repo-id <your-username>/image-caption-flickr8k --token <YOUR_HF_TOKEN>
+# Build Docker image
+docker-compose -f docker/docker-compose.yml build
+
+# Start services
+docker-compose -f docker/docker-compose.yml up
 ```
 
 ---
 
-## 🧪 Testing & Verification
+## <a id="model-hub"></a>Model Storage & Hugging Face Hub
 
-Run the automated test suite using `pytest`:
+Model checkpoints (`caption_model_best.pt`) and vocabulary mappings (`vocab.json`) can be downloaded or published directly to Hugging Face Hub:
+
+```bash
+python scripts/upload_to_hub.py --repo-id Mustafa700aa/neural-image-captioning-flickr8k --token <YOUR_HF_TOKEN>
+```
+
+---
+
+## <a id="testing"></a>Automated Test Suite
+
+Run the automated PyTest test suite to validate end-to-end functionality:
+
 ```bash
 pytest -v tests/
 ```
-All 22 unit & integration tests validate vocabulary mapping, data leakage prevention, tensor shapes across layers, attention weight distribution ($\sum \alpha = 1$), BLEU/ROUGE/METEOR calculations, beam search decoding, and FastAPI HTTP responses.
+
+**Test Suite Coverage (22/22 Passing):**
+- `test_vocabulary.py`: Special tokens (`<pad>`, `<start>`, `<end>`, `<unk>`), frequency filtering, and serialization.
+- `test_dataset.py`: Multi-reference mapping, data transforms, and shape validation.
+- `test_models.py`: ResNet-50 feature extraction dimensions, spatial attention tensor shapes, and gated recurrence.
+- `test_metrics.py`: Correct computation of BLEU 1-4, ROUGE-L, and METEOR.
+- `test_inference.py`: Greedy search, Beam search decoding, and length penalty enforcement.
+- `test_api.py`: FastAPI endpoints (`/health`, `/model-info`, `/predict`).
+
+---
+
+## <a id="license"></a>License & Author
+
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for full details.
+
+### Author
+- **Mustafa Mohamed** - [@Mustafa700aa](https://github.com/Mustafa700aa)
+- **Repository**: [neural-image-captioning-flickr8k](https://github.com/Mustafa700aa/neural-image-captioning-flickr8k)
