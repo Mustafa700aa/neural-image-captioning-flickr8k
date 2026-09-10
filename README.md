@@ -30,24 +30,23 @@ An end-to-end, production-grade Image Caption Generation system bridging **Compu
 │    (512-d Word Vectors) │      │   β_t = σ(W_g h_t) Gating     │      │ (Greedy / Beam Search)  │
 └─────────────────────────┘      └───────────────────────────────┘      └─────────────────────────┘
 ```
-
 ### 1. Vision Encoder (Transfer Learning)
-- Pretrained **ResNet-50** backbone extracts high-level convolutional feature maps before the classification head.
-- Spatial representation preserves a $14 \times 14$ grid ($P = 196$ spatial regions, feature dimension $D = 2048$).
-- Supports offline feature extraction and disk caching (`data/features/*.pt`) for accelerated training.
+- Pretrained **ResNet-50** backbone (omitting its final fully connected classification layer) extracts high-level convolutional feature maps from input images.
+- The spatial output maintains a $14 \times 14$ grid configuration, yielding $P = 196$ distinct spatial regions with a feature dimension of $D = 2048$.
+- Implements offline feature extraction pipelines with disk caching (`data/features/*.pt`) to eliminate redundant forward passes and optimize training throughput.
 
 ### 2. Bahdanau Additive Spatial Attention
-- Dynamically aligns the decoder's hidden state $h_t$ with visual feature locations $v_i$:
+- Computes alignment scores between the decoder's hidden state $h_t$ and spatial feature vectors $v_i$ via an additive feedforward structure:
   $$e_{t, i} = v_a^T \tanh(W_{enc} v_i + W_{dec} h_t + b_a)$$
   $$\alpha_{t, i} = \frac{\exp(e_{t, i})}{\sum_{k=1}^{196} \exp(e_{t, k})}$$
   $$z_t = \sum_{i=1}^{196} \alpha_{t, i} v_i$$
 
 ### 3. Adaptive Gating & LSTM Decoder
-- A learned sigmoid gating mechanism $\beta_t = \sigma(W_g h_t)$ modulates visual context versus linguistic language models before the LSTM recurrence step.
-- Teacher forcing is applied during training; **Greedy Search** and **Beam Search** ($k=5$ with length penalty normalization) are used during inference.
+- Employs a learned sigmoid gating mechanism $\beta_t = \sigma(W_g h_t)$ to dynamically weight the visual context vector relative to the language model representation before the LSTM recurrence step.
+- Utilizes teacher forcing during training, alongside **Greedy Search** and **Beam Search** ($k=5$ with length penalty normalization) for generation during inference.
 
 ### 4. Doubly Stochastic Attention Regularization
-- In addition to Cross-Entropy loss over generated tokens, a doubly stochastic penalty encourages the model to attend equally to all regions of the image across the sequence:
+- Integrates a doubly stochastic penalty alongside standard Cross-Entropy loss to penalize under-attention or over-attention to specific image regions across the generation sequence:
   $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{CE}} + \lambda \sum_{i=1}^{196} \left( 1 - \sum_{t=1}^T \alpha_{t, i} \right)^2$$
 
 ---
